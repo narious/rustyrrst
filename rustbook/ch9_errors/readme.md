@@ -66,3 +66,14 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
+The `?` calls the from function from the From library and also suppoerts chaining i.e., the following is also valid:\
+`let mut username = String::new(); File::open("hello.txt")?.read_to_string(&mut username)?`
+and immediately returns an error if one occured.
+
+Restriction: can only be used in a function that has the correct return type: Result, Option or any type that imlement FromResidual
+
+`Box<dyn fn>`: This is a trait object (more in ch17) and allows for different values of return types \
+The main function also returns a status bit similar to C. This return type can be further defined when implementing the `termination` trait
+
+## When to Panic!
+Panic! shouldn't be used unless the code violates some invariant or function contract. Most of the time we want to allow the user to attempt a recovery with some error information. Panic!, unwrap and expect are usefull for prototyping and testing since they 'signal' a TODO handle error.
