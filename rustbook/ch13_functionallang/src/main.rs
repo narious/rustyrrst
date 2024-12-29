@@ -3,10 +3,9 @@ use std::process;
 
 use minigrep::Config;
 
-// Main job for argument collecting and error handling
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    // Using iterators we can pass in the iterator directly to build instead of consuming it using collect()
+    let config = Config::build(env::args()).unwrap_or_else(|err| {
         eprintln!("Problem parsing args: {err}");
         process::exit(1)
     });
